@@ -28,6 +28,21 @@ var albumMarconi = {
     ]
 };
 
+var albumMyAlbum = {
+    title: 'The IT Crowd',
+    artist: 'Moss Jen Roy',
+    label: 'UK',
+    year: '2001',
+    albumArtUrl: 'assets/images/album_covers/19.png',
+    songs: [
+        { title: 'Hello, Operator?', duration: '1:01' },
+        { title: 'Ring, ring, ring', duration: '5:01'},
+        { title: 'Fits in your pocket', duration: '3:21' },
+        { title: 'Calamity Jen', duration: '3:14' },
+        { title: 'Final Countdown', duration: '2:15' }
+    ]
+};
+
 var createSongRow = function(songNumber, songName, songLength) {
     var template =
         '<tr class="album-view-song-item">'
@@ -60,5 +75,10 @@ var setCurrentAlbum = function(album) {
 };
 
 window.onload = function() {
-    setCurrentAlbum(albumPicasso);
+    document.addEventListener("click", function(event){
+        var albums = [albumPicasso, albumMarconi, albumMyAlbum]; 
+        var i = Math.floor((Math.random() * 3));
+        
+        setCurrentAlbum(albums[i]);
+    });
 };
