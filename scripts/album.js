@@ -98,13 +98,28 @@ var clickHandler = function(targetElement){
 };
 
 
-var findParentByClassName = function(element, targetClass) {
-    if (element) {
+var findParentByClassName = function(element, className){
+    if(element){
         var currentParent = element.parentElement;
-        while (currentParent.className != targetClass && currentParent.className !== null) {
-            currentParent = currentParent.parentElement;
+        
+        if(currentParent) {
+            while(currentParent.className != className && currentParent.className !== null){
+                currentParent = currentParent.parentElement;
+            }
+            return currentParent;
         }
-        return currentParent;
+        else if(currentParent === null) {
+            alert("No parent found");
+        }
+        else if(currentParent.className === null) {
+            alert("No parent found with that class name");
+        }
+        else if(currentlyPlayingSong !== songItem.getAttribute('data-song-number')){
+            var currentlyPlayingSongElement = document.querySelector('[data-song-number"' + currentlyPlayingSong + '"]');
+            currentlyPlayingSongElement.innerHTML = currentlyPlayingSongElement.getAttribute('data-song-number');
+            songItem.innerHTML = pauseButtonTemplate;
+            currentlyPlayingSong = songItem.getAttribute('data-song-number');
+        }
     }
 };
 
