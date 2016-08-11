@@ -1,6 +1,25 @@
 var setSong = function(songNumber){
+<<<<<<< HEAD
     currentlyPlayingSongNumber = parseInt(songNumber);
     currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
+=======
+    if(currentSoundFile){
+        currentSoundFile.stop();
+    }
+    currentlyPlayingSongNumber = parseInt(songNumber);
+    currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
+    currentSoundFile = new buzz.sound(currentSongFromAlbum.audioUrl, {
+        formats: ['mp3'],
+        preload: true
+    });
+    setVolume(currentVolume);
+};
+
+var setVolume = function(volume){
+    if(currentSoundFile){
+        currentSoundFile.setVolume(volume);
+    }
+>>>>>>> checkpoint-33-songs
 };
 
 var getSongNumberCell = function(number){
@@ -23,19 +42,33 @@ var createSongRow = function(songNumber, songName, songLength) {
 
         if (currentlyPlayingSongNumber !== null) {
             var currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
+            currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
             currentlyPlayingCell.html(currentlyPlayingSongNumber);
         }
         
         if (currentlyPlayingSongNumber !== songNumber) {
+            setSong(songNumber);
+            console.log(currentSoundFile)
+            currentSoundFile.play();
             $(this).html(pauseButtonTemplate);
 //            currentlyPlayingSongNumber = songNumber;
+<<<<<<< HEAD
 //            currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
             setSong(songNumber);
+=======
+            currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
+>>>>>>> checkpoint-33-songs
             updatePlayerBarSong();
         } else if (currentlyPlayingSongNumber === songNumber) {
-            $(this).html(playButtonTemplate);
-            $('.main-controls .play-pause').html(playerBarPlayButton);
-            currentlyPlayingSongNumber = null;
+            if (currentSoundFile.isPaused()) {
+                $(this).html(pauseButtonTemplate);
+                $('.main-controls .play-pause').html(playerBarPauseButton);
+                currentSoundFile.play();
+            } else {
+                $(this).html(playButtonTemplate);
+                $('.main-controls .play-pause').html(playerBarPlayButton);
+                currentSoundFile.pause();   
+            }
         }
     };
     
@@ -101,9 +134,14 @@ var nextSong = function() {
         currentSongIndex = 0;
     }
     
+<<<<<<< HEAD
     currentlyPlayingSongNumber = currentSongIndex + 1;
     currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
 
+=======
+    setSong(currentSongIndex + 1);
+    currentSoundFile.play();
+>>>>>>> checkpoint-33-songs
     updatePlayerBarSong();
     
     var lastSongNumber = getLastSongNumber(currentSongIndex);
@@ -127,9 +165,14 @@ var previousSong = function() {
         currentSongIndex = currentAlbum.songs.length - 1;
     }
     
+<<<<<<< HEAD
     currentlyPlayingSongNumber = currentSongIndex + 1;
     currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
     
+=======
+    setSong(currentSongIndex + 1);
+    currentSoundFile.play();
+>>>>>>> checkpoint-33-songs
     updatePlayerBarSong();
     
     var lastSongNumber = getLastSongNumber(currentSongIndex);
@@ -155,6 +198,8 @@ var playerBarPauseButton = '<span class="ion-pause"></span>';
 var currentlyPlayingSongNumber = null;
 var currentAlbum = null;
 var currentSongFromAlbum = null;
+var currentSoundFile = null;
+var currentVolume = 80;
 var $previousButton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
 
